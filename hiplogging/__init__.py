@@ -12,7 +12,7 @@ class HipChat(object):
     def find_room_id(self, name):
         room_id = self.room_ids_cache.get(name)
         if not room_id:
-            room_id = self.api.find_room('Pastebin')['room_id']
+            room_id = self.api.find_room(name)['room_id']
             self.room_ids_cache[name] = room_id
         return room_id
 
