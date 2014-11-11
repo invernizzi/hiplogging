@@ -12,18 +12,26 @@ class HipChat(object):
     def find_room_id(self, name):
         room_id = self.room_ids_cache.get(name)
         if not room_id:
-            room_id = self.api.find_room(name)['room_id']
+            try:
+                room_id = self.api.find_room(name)['room_id']
+            except TypeError:
+                # The hipchat library didn't find the room
+                print 'WARNING: hipchat room "%s" not found!' % name
+                return None
             self.room_ids_cache[name] = room_id
         return room_id
 
     def send_message(self, message, sender='log', color='yellow', room=None):
         if not room:
             room = self.default_room
-        response = self.api.method(
+        room_id = self.find_room_id(room)
+        if room_id is None:
+            return
+        self.api.method(
             'rooms/message',
             method='POST',
             parameters={
-                'room_id': self.find_room_id(room),
+                'room_id': room_id,
                 'from': sender,
                 'color': color,
                 'message': message
