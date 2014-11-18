@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+from __future__ import print_function
+
 import logging
 import hipchat
 
@@ -15,8 +19,7 @@ class HipChat(object):
             try:
                 room_id = self.api.find_room(name)['room_id']
             except TypeError:
-                # The hipchat library didn't find the room
-                print 'WARNING: hipchat room "%s" not found!' % name
+                print('WARNING: hipchat room "{0}" not found!'.format(name))
                 return None
             self.room_ids_cache[name] = room_id
         return room_id
