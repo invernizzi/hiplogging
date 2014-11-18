@@ -1,17 +1,18 @@
 from setuptools import setup
 
+VERSION='1.1'
 
 setup(
     description="HipChat support for the Python logging module",
     name='hiplogging',
     url='https://github.com/invernizzi/hiplogging',
-    version='1.0',
+    version=VERSION,
     packages=['hiplogging'],
     author='Luca Invernizzi',
     author_email='invernizzi.l@gmail.com',
     license='MIT',
     keywords=['hipchat', 'log', 'logging'],
-    download_url = 'https://github.com/invernizzi/hiplogging/tarball/1.0',
+    download_url = 'https://github.com/invernizzi/hiplogging/tarball/%s' % VERSION,
     install_requires=['python-simple-hipchat'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
