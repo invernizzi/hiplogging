@@ -24,8 +24,8 @@ Example
 
 Here’s how you use this. In bash:
 ```bash
-export HIPCHAT_ADMIN_TOKEN=”ABCDEF”
-export HIPCHAT_ROOM=’HelloWorld’
+export HIPCHAT_ADMIN_TOKEN='ABCDEF'
+export HIPCHAT_ROOM='HelloWorld'
 ```
 
 You can an _admin_ token from [this link](https://<YOUR_HIPCHAT_NAME>.hipchat.com/admin/api). Note that a 'notification' token will not work.
