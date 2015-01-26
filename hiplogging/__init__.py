@@ -30,15 +30,11 @@ class HipChat(object):
         room_id = self.find_room_id(room)
         if room_id is None:
             return
-        self.api.method(
-            'rooms/message',
-            method='POST',
-            parameters={
-                'room_id': room_id,
-                'from': sender,
-                'color': color,
-                'message': message
-            }
+        self.api.message_room(
+            room_id=room_id,
+            message_from=sender,
+            color=color,
+            message=message
         )
 
 
