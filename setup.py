@@ -1,6 +1,6 @@
 from setuptools import setup
 
-VERSION='1.1'
+VERSION='1.2.1'
 
 setup(
     description="HipChat support for the Python logging module",
