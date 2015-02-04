@@ -28,7 +28,7 @@ export HIPCHAT_ADMIN_TOKEN=”ABCDEF”
 export HIPCHAT_ROOM=’HelloWorld’
 ```
 
-You can an admin token from [this link](https://<YOUR_HIPCHAT_NAME>.hipchat.com/admin/api).
+You can an _admin_ token from [this link](https://<YOUR_HIPCHAT_NAME>.hipchat.com/admin/api). Note that a 'notification' token will not work.
 
 Then, in the sweet code:
 
