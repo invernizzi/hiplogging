@@ -2,6 +2,7 @@
 
 VERSION=$(python3 setup.py --version)
 
+git add -u
 git commit -m "Version $VERSION release"
 git tag $VERSION -m "Version $VERSION"
 git push --tags
