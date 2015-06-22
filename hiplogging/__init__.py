@@ -22,7 +22,7 @@ class HipChat(object):
             self.room_ids_cache[name] = room_id
         return room_id
 
-    def send_message(self, message, sender='log', color='yellow', room=None):
+    def send_message(self, message, sender='log', color='yellow', room=None, notify=0):
         if not room:
             room = self.default_room
         room_id = self.find_room_id(room)
@@ -32,7 +32,8 @@ class HipChat(object):
             room_id=room_id,
             message_from=sender,
             color=color,
-            message=message
+            message=message,
+            notify=notify,
         )
 
 
@@ -47,15 +48,20 @@ class HipChatHandler(logging.Handler):
         if hasattr(record, "color"):
             color = record.color
         else:
-            color=self.__color_for_level(record.levelno)
+            color = self.__color_for_level(record.levelno)
         if hasattr(record, "sender"):
             sender = record.sender
         else:
-            sender='-'.join([n for n in [self.sender, record.levelname] if n])
+            sender = '-'.join([n for n in [self.sender, record.levelname] if n])
+        if hasattr(record, "notify"):
+            notify = record.notify
+        else:
+            notify = self.__notify_for_level(record.levelno)
         self.api.send_message(
             self.format(record),
             sender=sender,
-            color=color
+            color=color,
+            notify=notify,
         )
 
     def __color_for_level(self, levelno):
@@ -68,3 +74,14 @@ class HipChatHandler(logging.Handler):
         if levelno == logging.DEBUG:
             return 'gray'
         return 'purple'
+
+    def __notify_for_level(self, levelno):
+        if levelno > logging.WARNING:
+            return 1
+        if levelno == logging.WARNING:
+            return 0
+        if levelno == logging.INFO:
+            return 0
+        if levelno == logging.DEBUG:
+            return 0
+        return 0
