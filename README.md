@@ -65,3 +65,11 @@ logger.log(20, "Another message", extra={'color':'purple', "sender":"FOOBAR"})
 ## This is what you get
 ![This is what you get](example.png)
 
+## Troubleshooting
+Did you get an error like this?
+
+```
+urllib2.HTTPError: HTTP Error 401: Unauthorized
+```
+
+Most likely, you are using a _notification_ token, instead of an _admin_ one. Get an admin token from [this link](https://<YOUR_HIPCHAT_NAME>.hipchat.com/admin/api).
