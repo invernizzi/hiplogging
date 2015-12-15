@@ -13,7 +13,7 @@ setup(
     license='MIT',
     keywords=['hipchat', 'log', 'logging'],
     download_url = 'https://github.com/invernizzi/hiplogging/tarball/%s' % VERSION,
-    install_requires=['python-simple-hipchat'],
+    install_requires=['hypchat'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
