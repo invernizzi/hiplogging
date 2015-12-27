@@ -3,13 +3,18 @@ import logging
 import hiplogging
 
 # Set up a standard logger
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger()
+logger = logging.getLogger('hipchat')
+logger.setLevel(logging.DEBUG)
+# Add the standard logging to stderr
+logger.addHandler(logging.StreamHandler())
 
 # Add the hipchat handler
-# Get an admin token from: https://<YOUR_HIPCHAT_NAME>.hipchat.com/admin/api
-handler = hiplogging.HipChatHandler(os.environ['HIPCHAT_ADMIN_TOKEN'],
-                                   os.environ['HIPCHAT_ROOM'])
+# Get an access token from: https://<YOUR_HIPCHAT_NAME>.hipchat.com/admin/api
+handler = hiplogging.HipChatHandler(os.environ['HIPCHAT_ACCESS_TOKEN'],
+                                    os.environ['HIPCHAT_ROOM'])
+# Additionally, you can add an optional third argument `environment`, if your
+# host your HipChat server.
+# i.e.: https//hipchat.yourdomain.com
 handler.setLevel(logging.DEBUG)
 logger.addHandler(handler)
 

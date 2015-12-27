@@ -24,11 +24,11 @@ Example
 
 Here’s how you use this. In bash:
 ```bash
-export HIPCHAT_ADMIN_TOKEN='ABCDEF'
+export HIPCHAT_ACCESS_TOKEN='ABCDEF'
 export HIPCHAT_ROOM='HelloWorld'
 ```
 
-You can an _admin_ token from [this link](https://<YOUR_HIPCHAT_NAME>.hipchat.com/admin/api). Note that a 'notification' token will not work.
+You can an access token from [this link](https://<YOUR_HIPCHAT_NAME>.hipchat.com/admin/api).
 
 Then, in the sweet code:
 
@@ -38,13 +38,18 @@ import logging
 import hiplogging
 
 # Set up a standard logger
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger()
+logger = logging.getLogger('hipchat')
+logger.setLevel(logging.DEBUG)
+# Add the standard logging to stderr
+logger.addHandler(logging.StreamHandler())
 
 # Add the hipchat handler
-# Get an admin token from: https://<YOUR_HIPCHAT_NAME>.hipchat.com/admin/api
-handler = hiplogging.HipChatHandler(os.environ['HIPCHAT_ADMIN_TOKEN'],
-                                   os.environ['HIPCHAT_ROOM'])
+# Get an access token from: https://<YOUR_HIPCHAT_NAME>.hipchat.com/admin/api
+handler = hiplogging.HipChatHandler(os.environ['HIPCHAT_ACCESS_TOKEN'],
+                                    os.environ['HIPCHAT_ROOM'])
+# Additionally, you can add an optional third argument `environment`, if your
+# host your HipChat server.
+# i.e.: https//hipchat.yourdomain.com
 handler.setLevel(logging.DEBUG)
 logger.addHandler(handler)
 
@@ -53,23 +58,16 @@ logger.debug('debug - we are approaching the anomaly')
 logger.info('info - shields up, red alert!')
 logger.warn('warn - shield down to 15%')
 logger.fatal('fatal - what shields?')
+```
 
-# You can set your own colors and the sender name using extra with logging.log.
+## This is what you get
+![This is what you get](example.png)
+
+ You can set your own colors and the sender name using extra with logging.log.
+```python
 # Valid colors are ["purple", "gray", "green", "yellow", "red"]
 # The first argument is the log level:
 #    https://docs.python.org/2/library/logging.html#logging-levels
 #    https://docs.python.org/2/library/logging.html#logging.log
 logger.log(20, "Another message", extra={'color':'purple', "sender":"FOOBAR"})
 ```
-
-## This is what you get
-![This is what you get](example.png)
-
-## Troubleshooting
-Did you get an error like this?
-
-```
-urllib2.HTTPError: HTTP Error 401: Unauthorized
-```
-
-Most likely, you are using a _notification_ token, instead of an _admin_ one. Get an admin token from [this link](https://<YOUR_HIPCHAT_NAME>.hipchat.com/admin/api).
