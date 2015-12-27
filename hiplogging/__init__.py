@@ -21,7 +21,6 @@ class HipChatHandler(logging.Handler):
             notify = bool(record.notify)
         else:
             notify = self.__notify_for_level(record.levelno)
-        print 'calling emit'
         self.room.notification(
             message=self.format(record),
             color=color,

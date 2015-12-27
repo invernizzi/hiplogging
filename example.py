@@ -5,16 +5,18 @@ import hiplogging
 # Set up a standard logger
 logger = logging.getLogger('hipchat')
 logger.setLevel(logging.DEBUG)
-
+# Add the standard logging to stderr
+logger.addHandler(logging.StreamHandler())
 
 # Add the hipchat handler
-# Get an admin token from: https://<YOUR_HIPCHAT_NAME>.hipchat.com/admin/api
-handler = hiplogging.HipChatHandler(os.environ['HIPCHAT_ACCESS_TOKEN'], os.environ['HIPCHAT_ROOM'])
-# An optional after the HipChat Room is 'environment' for the case of your own HipChat server
+# Get an access token from: https://<YOUR_HIPCHAT_NAME>.hipchat.com/admin/api
+handler = hiplogging.HipChatHandler(os.environ['HIPCHAT_ACCESS_TOKEN'],
+                                    os.environ['HIPCHAT_ROOM'])
+# Additionally, you can add an optional third argument `environment`, if your
+# host your HipChat server.
 # i.e.: https//hipchat.yourdomain.com
 handler.setLevel(logging.DEBUG)
 logger.addHandler(handler)
-
 
 # Try it out: messages will be visible both in the console and on hipchat.
 logger.debug('debug - we are approaching the anomaly')
