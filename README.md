@@ -3,6 +3,10 @@ Hiplogging
 
 With Hiplogging, you can keep using the standard python [logging](https://docs.python.org/2/library/logging.html) module, *and* have the important log messages in HipChat, where they might actually reach you :)
 
+Collaborator wanted!
+--------
+Hi there, internet stranger! As time is a scarce resource for me nowadays, I'm looking for a collaborator to handle issues and pull requests in a more timely manner. If you are interested, send me an email at `invernizzi.l@gmail.com`. 
+
 
 Installation
 --------
